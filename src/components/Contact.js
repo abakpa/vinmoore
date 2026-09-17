@@ -3,17 +3,26 @@ import React from 'react';
 
 function Contact() {
     return (
-        <section id="contact" className="py-16 px-6 bg-gray-50 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-darkPurple">Contact Us</h2>
-            <p className="mt-4 text-sm md:text-base text-gray-700">Get in touch with us for more information.</p>
-            <form className="mt-8 max-w-md mx-auto">
-                <input type="text" placeholder="Name" className="w-full p-2 mb-4 border border-gray-300 rounded text-sm md:text-base" />
-                <input type="email" placeholder="Email" className="w-full p-2 mb-4 border border-gray-300 rounded text-sm md:text-base" />
-                <textarea placeholder="Message" className="w-full p-2 mb-4 border border-gray-300 rounded text-sm md:text-base"></textarea>
-                <button className="w-full px-4 py-2 bg-brandColor text-white rounded hover:bg-darkPurple text-sm md:text-base">
-                    Submit
+        <section id="contact" className="bg-white py-20">
+            <div className="page-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+                <div>
+                    <p className="eyebrow">Contact us</p>
+                    <h2 className="section-title mt-3">Tell us what your operation needs.</h2>
+                    <p className="section-copy mt-5">Get in touch for product availability, sourcing requirements, or general enquiries.</p>
+                    <div className="mt-8 rounded-md border border-brandLine bg-[#fafafa] p-5">
+                        <p className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Response focus</p>
+                        <p className="mt-2 text-brandMuted">Product enquiries, supply requests, and partnership discussions.</p>
+                    </div>
+                </div>
+                <form className="rounded-md border border-brandLine bg-white p-6 shadow-soft md:p-8">
+                    <input type="text" placeholder="Name" className="field mb-4" />
+                    <input type="email" placeholder="Email" className="field mb-4" />
+                    <textarea placeholder="Message" rows="5" className="field mb-4"></textarea>
+                    <button className="primary-button w-full">
+                        Submit
                 </button>
             </form>
+            </div>
         </section>
     );
 }

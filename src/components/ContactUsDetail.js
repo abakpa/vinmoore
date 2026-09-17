@@ -29,49 +29,49 @@ function ContactUsDetail() {
       }
     };
     return (
-        <section className="space-y-10">
-            {/* Full-Screen Introduction with Background Image */}
+        <section className="bg-white">
             <div
-                className=" mt-16 relative bg-cover bg-center min-h-screen flex items-center justify-center text-center text-white"
+                className="relative flex min-h-[70vh] items-center bg-cover bg-center pt-24 text-white"
                 style={{
-                    backgroundImage: `url(${contactImage2})` // Replace with your actual background image URL
+                    backgroundImage: `linear-gradient(90deg, rgba(17,19,23,0.92), rgba(17,19,23,0.52)), url(${contactImage2})`
                 }}
             >
-                <div className="bg-black bg-opacity-50 p-8 w-full max-w-4xl mx-auto">
-                    <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
-                    <p className="text-lg">
-                        We’d love to hear from you! Reach out to us with any inquiries, questions, or feedback, and our team will be happy to assist.
+                <div className="page-shell">
+                    <div className="max-w-3xl py-16">
+                    <p className="eyebrow text-red-200">Contact</p>
+                    <h1 className="mt-4 text-5xl font-black leading-tight md:text-6xl">Let's discuss your chemical supply needs.</h1>
+                    <p className="mt-6 text-lg leading-8 text-white/78">
+                        Reach out with inquiries, questions, or feedback, and our team will be happy to assist.
                     </p>
+                    </div>
                 </div>
             </div>
 
-            {/* Contact Form Section */}
-            <div className="px-6 lg:px-24 flex flex-col lg:flex-row lg:space-x-10">
-                {/* Left side: Contact Form */}
-                <div className="flex-1 mt-6 mb-10 lg:mt-0">
+            <div className="page-shell grid gap-10 py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
+                <div className="overflow-hidden rounded-md shadow-soft">
                     <img
                         src={contactImage}
                         alt="Contact"
-                        className="w-full h-full object-cover rounded-lg"
+                        className="h-full min-h-[420px] w-full object-cover"
                     />
                 </div>
-                {/* Right side: Contact Image */}
-                <div className="flex-1 mb-10">
-                    <h2 className="text-2xl font-semibold text-darkPurple mb-4">Get in Touch</h2>
-                    <form id="contactForm" onSubmit={handleSubmit}>
+                <div className="rounded-md border border-brandLine bg-white p-6 shadow-soft md:p-8">
+                    <p className="eyebrow">Get in touch</p>
+                    <h2 className="mt-3 text-3xl font-extrabold text-brandDark">Send a message</h2>
+                    <form id="contactForm" onSubmit={handleSubmit} className="mt-7 space-y-5">
       <div>
-        <label for="name" class="block text-gray-700 font-semibold">Name</label>
-        <input type="text" id="name" name="name"  value={formData.name} onChange={handleChange}  required class="w-full p-2 border border-gray-300 rounded"/>
+        <label htmlFor="name" className="mb-2 block text-sm font-bold text-brandDark">Name</label>
+        <input type="text" id="name" name="name"  value={formData.name} onChange={handleChange}  required className="field"/>
       </div>
       <div>
-        <label for="email" class="block text-gray-700 font-semibold">Email</label>
-        <input type="email" id="email" name="email"  value={formData.email} onChange={handleChange} required class="w-full p-2 border border-gray-300 rounded"/>
+        <label htmlFor="email" className="mb-2 block text-sm font-bold text-brandDark">Email</label>
+        <input type="email" id="email" name="email"  value={formData.email} onChange={handleChange} required className="field"/>
       </div>
       <div>
-        <label for="message" class="block text-gray-700 font-semibold">Message</label>
-        <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="4" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+        <label htmlFor="message" className="mb-2 block text-sm font-bold text-brandDark">Message</label>
+        <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="5" required className="field"></textarea>
       </div>
-      <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded">Send Message</button>
+      <button type="submit" className="primary-button w-full">Send Message</button>
     </form>
                 </div>
               

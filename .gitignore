@@ -3,11 +3,12 @@ node_modules/
 
 # Ignore log files
 *.log
+.DS_Store
 
 # Ignore environment variable files
 .env
 
 # Ignore build directories
 dist/
-# build/
+build/
 package-lock.json

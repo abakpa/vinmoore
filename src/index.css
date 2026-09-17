@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: #f7f8fa;
+    color: #111317;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #d71920;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-brandColor;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold leading-tight text-brandDark md:text-4xl;
+  }
+
+  .section-copy {
+    @apply text-base leading-7 text-brandMuted md:text-lg;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center rounded-md bg-brandColor px-6 py-3 text-sm font-bold text-white shadow-lg shadow-red-900/20 transition duration-300 hover:-translate-y-0.5 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center rounded-md border border-brandLine bg-white px-6 py-3 text-sm font-bold text-brandDark transition duration-300 hover:-translate-y-0.5 hover:border-brandColor hover:text-brandColor focus:outline-none focus:ring-4 focus:ring-red-100;
+  }
+
+  .field {
+    @apply w-full rounded-md border border-brandLine bg-white px-4 py-3 text-sm text-brandDark outline-none transition placeholder:text-gray-400 focus:border-brandColor focus:ring-4 focus:ring-red-100;
+  }
+
+  .hero-carousel-track {
+    animation: hero-slide 16s infinite ease-in-out;
+  }
+}
+
+@keyframes hero-slide {
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+
+  25%,
+  45% {
+    transform: translateX(-25%);
+  }
+
+  50%,
+  70% {
+    transform: translateX(-50%);
+  }
+
+  75%,
+  95% {
+    transform: translateX(-75%);
+  }
+
+  100% {
+    transform: translateX(-75%);
+  }
+}

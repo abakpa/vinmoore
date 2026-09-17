@@ -8,15 +8,11 @@ import Contact from './Contact';
 
 const Home = () =>{
     return (
-        <div className="App">
-            {/* <Navbar /> */}
-            <div className="pt-16 pb-16"> {/* Add padding here to prevent overlap */}
-                <Hero />
-                <About />
-                <FeaturedProducts />
-                <Contact />
-            </div>
-            {/* <Footer /> */}
+        <div className="bg-[#f7f8fa]">
+            <Hero />
+            <About />
+            <FeaturedProducts />
+            <Contact />
         </div>
     );
 }
