@@ -5,7 +5,7 @@ import missionImage from '../components/images/mission 2.jpeg';
 import visionImage from '../components/images/vison.jpeg';
 import valueImage from '../components/images/value 2.jpeg';
 import jebsenLogo from '../components/images/jebsen.svg';
-import cosmoLogo from '../components/images/cosmo vinmoore.jpeg';
+import cosmoLogo from '../components/images/cosmo vinmoore.png';
 import reuseLogo from '../components/images/reuse vinmoore.png';
 import tianjinLogo from '../components/images/Tianjin vinmoore.jpeg';
 
