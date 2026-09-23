@@ -1,8 +1,8 @@
 // components/Hero.js
 import React from 'react';
 import homeImage1 from './homeimage/1.jpg';
-import homeImage2 from './homeimage/2.jpg';
-import homeImage3 from './homeimage/3.jpg';
+import homeImage2 from './homeimage/2.png';
+import homeImage3 from './homeimage/3.png';
 import { Link } from 'react-router-dom';
 
 function Hero() {

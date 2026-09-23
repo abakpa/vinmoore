@@ -4,12 +4,19 @@ import aboutImage from '../components/images/about1.jpeg';
 import missionImage from '../components/images/mission 2.jpeg';
 import visionImage from '../components/images/vison.jpeg';
 import valueImage from '../components/images/value 2.jpeg';
-import client1 from '../components/images/rekitt2.png';
-import client2 from '../components/images/gapuma.jpeg';
-import client3 from '../components/images/jebsen.svg';
-import client4 from '../components/images/nycil.png';
+import jebsenLogo from '../components/images/jebsen.svg';
+import cosmoLogo from '../components/images/cosmo vinmoore.jpeg';
+import reuseLogo from '../components/images/reuse vinmoore.png';
+import tianjinLogo from '../components/images/Tianjin vinmoore.jpeg';
 
 function AboutUsDetail() {
+    const partners = [
+        { name: 'Jebsen', logo: jebsenLogo },
+        { name: 'Cosmo', logo: cosmoLogo },
+        { name: 'Reuse', logo: reuseLogo },
+        { name: 'Tianjin', logo: tianjinLogo },
+    ];
+
     return (
         <section className="bg-white">
             <div
@@ -87,9 +94,9 @@ function AboutUsDetail() {
                     trust us to provide high-quality chemicals that meet their specific needs.
                 </p>
                 <div className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:grid-cols-4">
-                    {[client1, client2, client3, client4].map((client, index) => (
-                        <div key={index} className="flex h-28 items-center justify-center rounded-md border border-brandLine bg-white p-5 shadow-soft">
-                            <img src={client} alt={`Client ${index + 1}`} className="max-h-20 object-contain" />
+                    {partners.map((partner) => (
+                        <div key={partner.name} className="flex h-28 items-center justify-center rounded-md border border-brandLine bg-white p-5 shadow-soft">
+                            <img src={partner.logo} alt={`${partner.name} logo`} className="max-h-20 object-contain" />
                         </div>
                     ))}
                 </div>

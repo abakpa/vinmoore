@@ -1,11 +1,12 @@
 // components/ContactUs.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import { sendContactMessage } from '../api/contact';
 import contactImage from '../components/images/contact.webp'; // Add the actual image path
 import contactImage2 from '../components/images/contact5.jpeg'; // Add the actual image path
 
 function ContactUsDetail() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -14,18 +15,18 @@ function ContactUsDetail() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setIsSubmitting(true);
       try {
-        // Send form data to the server
-        await axios.post('http://localhost:3002/send-email', formData);
+        await sendContactMessage(formData);
         
-        // Show success alert without page navigation
         alert('Message sent successfully!');
         
-        // Optionally reset the form fields
         setFormData({ name: '', email: '', message: '' });
       } catch (error) {
         console.error('Error sending message:', error);
         alert('Failed to send message. Please try again later.');
+      } finally {
+        setIsSubmitting(false);
       }
     };
     return (
@@ -71,7 +72,9 @@ function ContactUsDetail() {
         <label htmlFor="message" className="mb-2 block text-sm font-bold text-brandDark">Message</label>
         <textarea id="message" name="message" value={formData.message} onChange={handleChange} rows="5" required className="field"></textarea>
       </div>
-      <button type="submit" className="primary-button w-full">Send Message</button>
+      <button type="submit" disabled={isSubmitting} className="primary-button w-full disabled:cursor-not-allowed disabled:opacity-70">
+        {isSubmitting ? 'Sending...' : 'Send Message'}
+      </button>
     </form>
                 </div>
               
