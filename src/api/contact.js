@@ -1,4 +1,4 @@
-const CONTACT_API_URL = 'http://localhost:3002';
+const CONTACT_API_URL = 'https://vinmoore-server.onrender.com';
 
 export async function sendContactMessage(formData) {
     const response = await fetch(`${CONTACT_API_URL}/send-email`, {
