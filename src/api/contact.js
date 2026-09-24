@@ -17,17 +17,21 @@ export async function sendContactMessage(formData) {
         }),
     });
 
-    if (!response.ok) {
-        let errorMessage = 'Message failed to send';
+    let responseData = null;
 
-        try {
-            const errorData = await response.json();
-            errorMessage = errorData.details || errorData.error || errorMessage;
-        } catch (error) {
-            const errorText = await response.text();
-            errorMessage = errorText || errorMessage;
-        }
+    try {
+        responseData = await response.json();
+    } catch (error) {
+        responseData = null;
+    }
+
+    if (!response.ok) {
+        const errorMessage = responseData?.message || responseData?.error || 'Message failed to send';
 
         throw new Error(errorMessage);
+    }
+
+    if (responseData?.success === false || responseData?.success === 'false' || responseData?.error) {
+        throw new Error(responseData.message || responseData.error || 'Message failed to send');
     }
 }
