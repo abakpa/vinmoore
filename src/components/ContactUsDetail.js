@@ -1,12 +1,17 @@
 // components/ContactUs.js
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { sendContactMessage } from '../api/contact';
+import MessageModal from './MessageModal';
 import contactImage from '../components/images/contact.webp'; // Add the actual image path
 import contactImage2 from '../components/images/contact5.jpeg'; // Add the actual image path
 
 function ContactUsDetail() {
+    const phoneNumbers = ['08033085045', '08059544825', '09045420912'];
+    const address = '415, Apapa Oshodi Expressway, by Iyana Tire Junction, Beside YTK Filling Station Ilasamaja P.O.Box 3725, Mushin Lagos';
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [modal, setModal] = useState({ isOpen: false, type: 'success', title: '', message: '' });
+    const submitLockRef = useRef(false);
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -15,22 +20,43 @@ function ContactUsDetail() {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+      if (submitLockRef.current) {
+        return;
+      }
+
+      submitLockRef.current = true;
       setIsSubmitting(true);
       try {
         await sendContactMessage(formData);
-        
-        alert('Message sent successfully!');
-        
         setFormData({ name: '', email: '', message: '' });
+        setModal({
+          isOpen: true,
+          type: 'success',
+          title: 'Message Sent',
+          message: 'Thank you for reaching out. Our team will review your request and get back to you shortly.',
+        });
       } catch (error) {
         console.error('Error sending message:', error);
-        alert('Failed to send message. Please try again later.');
+        setModal({
+          isOpen: true,
+          type: 'error',
+          title: 'Message Failed',
+          message: error.message || 'Your message could not be sent right now. Please try again later.',
+        });
       } finally {
+        submitLockRef.current = false;
         setIsSubmitting(false);
       }
     };
     return (
         <section className="bg-white">
+            <MessageModal
+                isOpen={modal.isOpen}
+                type={modal.type}
+                title={modal.title}
+                message={modal.message}
+                onClose={() => setModal((prevModal) => ({ ...prevModal, isOpen: false }))}
+            />
             <div
                 className="relative flex min-h-[70vh] items-center bg-cover bg-center pt-24 text-white"
                 style={{
@@ -53,8 +79,27 @@ function ContactUsDetail() {
                     <img
                         src={contactImage}
                         alt="Contact"
-                        className="h-full min-h-[420px] w-full object-cover"
+                        className="h-80 w-full object-cover lg:h-[420px]"
                     />
+                    <div className="border border-t-0 border-brandLine bg-white p-6 md:p-8">
+                        <p className="eyebrow">Contact details</p>
+                        <div className="mt-5 grid gap-4">
+                            <div>
+                                <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Phone</h3>
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                    {phoneNumbers.map((phoneNumber) => (
+                                        <a key={phoneNumber} href={`tel:${phoneNumber}`} className="rounded bg-[#fafafa] px-3 py-2 text-sm font-bold text-brandDark transition hover:text-brandColor">
+                                            {phoneNumber}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Address</h3>
+                                <p className="mt-3 text-sm leading-6 text-brandMuted">{address}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="rounded-md border border-brandLine bg-white p-6 shadow-soft md:p-8">
                     <p className="eyebrow">Get in touch</p>

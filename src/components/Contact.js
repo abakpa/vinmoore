@@ -1,11 +1,15 @@
 // components/Contact.js
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { sendContactMessage } from '../api/contact';
+import MessageModal from './MessageModal';
 
 function Contact() {
+    const phoneNumbers = ['08033085045', '08059544825', '09045420912'];
+    const address = '415, Apapa Oshodi Expressway, by Iyana Tire Junction, Beside YTK Filling Station Ilasamaja P.O.Box 3725, Mushin Lagos';
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-    const [status, setStatus] = useState('');
+    const [modal, setModal] = useState({ isOpen: false, type: 'success', title: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const submitLockRef = useRef(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -14,23 +18,45 @@ function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (submitLockRef.current) {
+            return;
+        }
+
+        submitLockRef.current = true;
         setIsSubmitting(true);
-        setStatus('');
 
         try {
             await sendContactMessage(formData);
             setFormData({ name: '', email: '', message: '' });
-            setStatus('Message sent successfully.');
+            setModal({
+                isOpen: true,
+                type: 'success',
+                title: 'Message Sent',
+                message: 'Thank you for reaching out. Our team will review your request and get back to you shortly.',
+            });
         } catch (error) {
             console.error('Error sending message:', error);
-            setStatus('Message failed to send. Please try again later.');
+            setModal({
+                isOpen: true,
+                type: 'error',
+                title: 'Message Failed',
+                message: error.message || 'Your message could not be sent right now. Please try again later.',
+            });
         } finally {
+            submitLockRef.current = false;
             setIsSubmitting(false);
         }
     };
 
     return (
         <section id="contact" className="bg-white py-20">
+            <MessageModal
+                isOpen={modal.isOpen}
+                type={modal.type}
+                title={modal.title}
+                message={modal.message}
+                onClose={() => setModal((prevModal) => ({ ...prevModal, isOpen: false }))}
+            />
             <div className="page-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
                 <div>
                     <p className="eyebrow">Contact us</p>
@@ -40,6 +66,22 @@ function Contact() {
                         <p className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Response focus</p>
                         <p className="mt-2 text-brandMuted">Product enquiries, supply requests, and partnership discussions.</p>
                     </div>
+                    <div className="mt-5 grid gap-3">
+                        <div className="rounded-md border border-brandLine bg-white p-5 shadow-soft">
+                            <p className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Phone</p>
+                            <div className="mt-3 flex flex-wrap gap-2">
+                                {phoneNumbers.map((phoneNumber) => (
+                                    <a key={phoneNumber} href={`tel:${phoneNumber}`} className="rounded bg-[#fafafa] px-3 py-2 text-sm font-bold text-brandDark transition hover:text-brandColor">
+                                        {phoneNumber}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="rounded-md border border-brandLine bg-white p-5 shadow-soft">
+                            <p className="text-sm font-bold uppercase tracking-[0.18em] text-brandColor">Address</p>
+                            <p className="mt-3 text-sm leading-6 text-brandMuted">{address}</p>
+                        </div>
+                    </div>
                 </div>
                 <form onSubmit={handleSubmit} className="rounded-md border border-brandLine bg-white p-6 shadow-soft md:p-8">
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className="field mb-4" />
@@ -48,7 +90,6 @@ function Contact() {
                     <button type="submit" disabled={isSubmitting} className="primary-button w-full disabled:cursor-not-allowed disabled:opacity-70">
                         {isSubmitting ? 'Sending...' : 'Submit'}
                     </button>
-                    {status && <p className="mt-4 text-sm font-semibold text-brandMuted">{status}</p>}
                 </form>
             </div>
         </section>
